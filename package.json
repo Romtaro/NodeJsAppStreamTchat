@@ -1,0 +1,22 @@
+{
+  "name": "streamt",
+  "version": "1.0.0",
+  "description": "description",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Romtaro/NodeJsAppStreamTchat.git"
+  },
+  "author": "MRR",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Romtaro/NodeJsAppStreamTchat/issues"
+  },
+  "homepage": "https://github.com/Romtaro/NodeJsAppStreamTchat#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
