@@ -1,0 +1,11 @@
+Dans /config/db.js
+tu gére ta bdd
+tu creer la bdd tu rajoute la table message (look dump.sql )
+tu fait un petit npm install
+et ensuite tu peut faire un 'npm run start' il va run le tout lancer auto
+te reste juste a aller au localhost:8080
+https://www.grafikart.fr/formations/nodejs/
+peace
+
+
+ps quand tu le lance comme je tes dit pas besoin de le relancer a chaque fois grace a un module que grafikart a montré du coup trop bien tu peux le laisser lancer !
