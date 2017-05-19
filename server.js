@@ -1,5 +1,4 @@
 let express = require('express')
-var path = require('path')
 let app = express()
 let bodyParser = require('body-parser')
 let session = require('express-session')
@@ -10,7 +9,7 @@ process.env.NODE_ENV="production";
 app.set('view engine', 'ejs')
 
 // Middleware
-app.use(express.static(path.join(__dirname, 'www')));
+app.use('/assets', express.static('public'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(session({
