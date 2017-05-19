@@ -4,6 +4,7 @@ let app = express()
 var server = require('http').createServer(app)
 let bodyParser = require('body-parser')
 let session = require('express-session')
+var port = 8080
 
 process.env.NODE_ENV="production";
 
@@ -69,4 +70,6 @@ io.sockets.on('connection', function (socket, pseudo) {
     });
 });
 
-app.listen(8080)
+app.listen(port)
+console.log("Listening on host : localhost")
+console.log("Listening on port " + port);
