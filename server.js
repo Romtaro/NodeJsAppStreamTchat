@@ -54,7 +54,6 @@ app.get('/message/:id', (request, response) => {
 
 // Chargement de socket.io
 var io = require('socket.io').listen(server);
-app.use(express.static(__dirname + '/bower_components'))
 
 io.on('connection', function(client) {
     console.log('Client connected...');
