@@ -2,38 +2,74 @@
 
 <div id="view_prin">
 
-<h2>NodeAppJS Project _-| StreamTchat</h2>
 
-<div class="stream"></div>
-<div class="tchat">
-<form action="/" method="post" class="ui form">
-  <div class="field">
-    <h3><label for="message">Message</label></h3>
-    <textarea name="message" id="message"></textarea>
+<div class="stream"><div class="videostream">Waiting streaming code..</div>
   </div>
-  <button type="submit" class="ui blue labeled submit icon button">
-    <i class="icon edit"></i> Envoyer
-  </button>
-</form>
 
-<div class="ui comments">
-  <h3 class="ui dividing header">Commentaires</h3>
-  <% for (message of messages) { %>
-  <div class="comment">
-    <a class="avatar" href="/message/<%= message.id %>">
-      <img src="https://randomuser.me/api/portraits/lego/6.jpg" width="35">
-    </a>
-    <div class="content">
-      <div class="metadata">
-        <div class="date">
-          <%= message.created_at.fromNow() %>
+  <div class="tchat">
+    <form action="/" method="post" class="ui form">
+      <div class="field">
+        <h3><label for="message">Message Instantannée</label></h3>
+        <textarea name="message" id="message"></textarea>
+      </div>
+      <button type="submit" class="ui blue labeled submit icon button">
+        <i class="icon edit"></i> Envoyer
+      </button>
+    </form>
+
+    <div class="ui comments">
+      <h3 class="ui dividing header">Commentaires</h3>
+        <% for (message of messages) { %>
+      <div class="comment">
+        <a class="avatar" href="/message/<%= message.id %>">
+          <img src="https://randomuser.me/api/portraits/lego/6.jpg" width="35">
+        </a>
+        <div class="content">
+          <div class="metadata">
+            <div class="date">
+                <%= message.created_at.fromNow() %>
+            </div>
+          </div>
+          <div class="text"><%= message.content %></div>
         </div>
       </div>
-      <div class="text"><%= message.content %></div>
+        <% } %>
     </div>
   </div>
-  <% } %>
+
+
+  <div class="commentt">
+    <form action="/" method="post" class="ui form">
+      <div class="field">
+        <h3><label for="message">Commentaires</label></h3>
+       <textarea rows="1" cols="55" name="message" id="message"></textarea><button type="submit" class="ui blue labeled submit icon button buttright">
+          <i class="icon edit"></i> Envoyer
+        </button>
+
+        </button>
+      </div>
+
+    </form>
+
+    <div class="ui comments">
+      <h3 class="ui dividing header">Commentaires</h3>
+        <% for (message of messages) { %>
+      <div class="comment">
+        <a class="avatar" href="/message/<%= message.id %>">
+          <img src="https://randomuser.me/api/portraits/lego/6.jpg" width="35">
+        </a>
+        <div class="content">
+          <div class="metadata">
+            <div class="date">
+                <%= message.created_at.fromNow() %>
+            </div>
+          </div>
+          <div class="text"><%= message.content %></div>
+        </div>
+      </div>
+        <% } %>
+    </div>
+  </div>
 </div>
-</div>
-</div>
+
 <% include footer %>
