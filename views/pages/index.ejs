@@ -1,43 +1,65 @@
 <% include header %>
-
+<script type="text/javascript" src="/stream.js"></script>
 <div id="view_prin">
 
 
-<div class="stream"><div class="videostream">Waiting streaming code..</div>
-  </div>
+  <div class="stream"><div class="videostream">
+    <h3>Team M2R en Direct</h3>
+    <div id="ytplayer"></div>
+  </div></div>
+
+
 
   <div class="tchat">
+    <h3 class="ui dividing header">Message Instantannée</h3>
 
-    <div class="ui comments">
-      <h3 class="ui dividing header">Message Instantannée</h3>
-        <% for (message of messages) { %>
-      <div class="comment">
-        <a class="avatar" href="/message/<%= message.id %>">
-          <img src="https://randomuser.me/api/portraits/lego/6.jpg" width="35">
-        </a>
-        <div class="content">
-          <div class="metadata">
-            <div class="date">
-                <%= message.created_at.fromNow() %>
-            </div>
-          </div>
-          <div class="text"><%= message.content %></div>
-        </div>
-      </div>
-        <% } %>
-    </div>
-
-    <div class="tchatform">
-    <form action="/" method="post" class="ui form">
-      <div class="field">
-        <h3><label for="message">Envoi</label></h3>
-        <textarea rows="1" cols="50" name="message" id="message"></textarea>
-      </div>
-      <button type="submit" class="ui blue labeled submit icon button">
-        <i class="icon edit"></i> Envoyer
-      </button>
+    <form action="/" method="post" id="formulaire_chat">
+      <input type="text" name="message" id="message" placeholder="Votre message..." size="50" autofocus />
+      <input type="submit" id="envoi_message" value="Envoyer" />
     </form>
-  </div>
+
+    <section id="zone_chat">
+
+    </section>
+
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+
+        // Connexion à socket.io
+        var socket = io.connect('http://localhost:8080');
+
+        // On demande le pseudo, on l'envoie au serveur et on l'affiche dans le titre
+        var pseudo = prompt('Quel est votre pseudo ?');
+        socket.emit('nouveau_client', pseudo);
+        document.title = pseudo + ' - ' + document.title;
+
+        // Quand on reçoit un message, on l'insère dans la page
+        socket.on('message', function(data) {
+            insereMessage(data.pseudo, data.message)
+        })
+
+        // Quand un nouveau client se connecte, on affiche l'information
+        socket.on('nouveau_client', function(pseudo) {
+            $('#zone_chat').prepend('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
+        })
+
+        // Lorsqu'on envoie le formulaire, on transmet le message et on l'affiche sur la page
+        $('#formulaire_chat').submit(function () {
+            var message = $('#message').val();
+            socket.emit('message', message); // Transmet le message aux autres
+            insereMessage(pseudo, message); // Affiche le message aussi sur notre page
+            $('#message').val('').focus(); // Vide la zone de Chat et remet le focus dessus
+            return false; // Permet de bloquer l'envoi "classique" du formulaire
+        });
+
+        // Ajoute un message dans la page
+        function insereMessage(pseudo, message) {
+            $('#zone_chat').prepend('<p><strong>' + pseudo + '</strong> ' + message + '</p>');
+        }
+    </script>
+
   </div>
 
   <div class="commentt">
@@ -66,9 +88,10 @@
             </div>
           </div>
           <div class="text"><%= message.content %></div>
-        </div>
+        </div><hr>
       </div>
         <% } %>
+
     </div>
   </div>
   </div>

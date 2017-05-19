@@ -1,6 +1,7 @@
 body {
     width: 100%;
     height: auto;
+    font-family: "Modern No. 20";
 }
 
 #view_prin {
@@ -104,10 +105,22 @@ footer {
     background-color: whitesmoke;
     padding:5px;
     max-width: inherit;
-
+    overflow-y:scroll;
 }
-.ui .comments h3 {
+
+.comment hr {
+    color: rgba(100, 100, 200, 0.1);
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.comment {
+    margin-left: 50px;
+}
+
+.tchat .ui.dividing.header {
     color: dimgrey;
+    margin: 0;
 }
 
 .tchatform {
@@ -131,4 +144,34 @@ footer {
     position: relative;
     border: none;
     margin-right: 0;
+}
+
+#message {
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 15px;
+}
+
+
+::-webkit-scrollbar-track-piece  {
+    background-color: #C2D2E4;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+    height: 30px;
+    background-color: #0A4C95;
+}
+
+.videostream h3 {
+    margin: 0;
+    margin-top: -15px;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+#ytplayer {
+    border-radius: 4px;
 }
