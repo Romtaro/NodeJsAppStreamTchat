@@ -16,6 +16,7 @@
     "express-session": "^1.14.0",
     "moment": "^2.14.1",
     "mysql": "^2.11.1",
+    "node-twitch-api": "^0.1.2",
     "nodemon": "^1.10.0"
   }
 }
