@@ -19,18 +19,9 @@
     </section>
 
 
-    <form action="" id="formulaire_chat" form="formulaire_chat">
-      <input id="m" autocomplete="off" /><button>Send</button>
+    <form action="/" id="formulaire_chat" form="formulaire_chat">
+      <input id="m" autocomplete="off" /><button>Envoyer</button>
     </form>
-
-
-
-
-
-
-
-
-
 
     <script type="text/javascript">
 
@@ -38,14 +29,13 @@
 
         var frm = $('#formulaire_chat');
         frm.submit(function (ev) {
-            ev.preventDefault();
+
             $.ajax({
 
                 type: frm.attr('method'),
                 url: frm.attr('action'),
                 data: frm.serialize(),
                 success: function (data) {
-
 
                 }
             });

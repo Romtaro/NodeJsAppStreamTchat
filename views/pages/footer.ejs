@@ -8,7 +8,9 @@
 
 <script type="text/javascript">
     $(function () {
-        var pseudo = prompt('Quel est votre pseudo ?');
+
+        var pseudo = 'Visitor'; //prompt('Quel est votre pseudo ?');
+
         var socket = io();
 
         socket.on('connect', function(data) {
@@ -32,7 +34,7 @@
             $('#messages').prepend('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
         })
 
-        $('form').submit(function(){
+        $('#formulaire_chat').submit(function(){
             socket.emit('chat message', $('#m').val());
             $('#m').val('');
             return false;
@@ -41,7 +43,7 @@
             $('#messages').append($('<li>').text(pseudo + ' : ' +msg));
             window.scrollTo(0, document.body.scrollHeight);
         });
-        
+
     });
 </script>
 </body>
