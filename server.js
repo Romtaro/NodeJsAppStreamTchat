@@ -1,6 +1,6 @@
-let express = require('express')
+var express = require('express')
 var path = require('path')
-let app = express()
+var app = express()
 var server = require('http').createServer(app)
 let bodyParser = require('body-parser')
 let session = require('express-session')
@@ -54,20 +54,16 @@ app.get('/message/:id', (request, response) => {
 
 // Chargement de socket.io
 var io = require('socket.io').listen(server);
+app.use(express.static(__dirname + '/bower_components'))
 
-io.sockets.on('connection', function (socket, pseudo) {
-    // Dès qu'on nous donne un pseudo, on le stocke en variable de session et on informe les autres personnes
-    socket.on('nouveau_client', function(pseudo) {
-        pseudo = ent.encode(pseudo);
-        socket.pseudo = pseudo;
-        socket.broadcast.emit('nouveau_client', pseudo);
+io.on('connection', function(client) {
+    console.log('Client connected...');
+
+    client.on('join', function(data) {
+        console.log(data);
+        client.emit('messages', 'Hello from server');
     });
 
-    // Dès qu'on reçoit un message, on récupère le pseudo de son auteur et on le transmet aux autres personnes
-    socket.on('message', function (message) {
-        message = ent.encode(message);
-        socket.broadcast.emit('message', {pseudo: socket.pseudo, message: message});
-    });
 });
 
 app.listen(port)

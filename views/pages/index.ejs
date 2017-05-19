@@ -30,20 +30,20 @@
 
 
 
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-
-    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
 
 
-    <script>
-
+    <script type="text/javascript">
+        var server = require('http').createServer(app)
         var io = require('socket.io').listen(server);
 
         // Connexion à socket.io
 
         var socket = io.connect('http://localhost:8080');
 
+        socket.on('connect', function(data) {
+            socket.emit('join', 'Hello World from visitor');
+        });
 
         // On demande le pseudo, on l'envoie au serveur et on l'affiche dans le titre
 
@@ -56,11 +56,9 @@
 
         // Quand on reçoit un message, on l'insère dans la page
 
-        socket.on('message', function(data) {
-
-            insereMessage(data.pseudo, data.message)
-
-        })
+        socket.on('messages', function(data) {
+            alert(data);
+        });
 
 
         // Quand un nouveau client se connecte, on affiche l'information
@@ -99,7 +97,7 @@
         }
 
     </script>
-
+<!--
 
     <script type="text/javascript">
         var frm = $('#formulaire_chat');
@@ -117,6 +115,10 @@
             ev.preventDefault();
         });
     </script>
+-->
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
 
   </div>
