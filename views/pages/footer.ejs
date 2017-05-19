@@ -1,5 +1,48 @@
 
 </div></div>
 <footer>NodeAppJS_StreamTchat</footer>
+
+
+<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        var pseudo = prompt('Quel est votre pseudo ?');
+        var socket = io();
+
+        socket.on('connect', function(data) {
+            socket.emit('join', 'Hello World from visitor');
+
+            $('#messages').prepend('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
+            socket.emit('join', pseudo +' connected');
+        });
+        // On demande le pseudo, on l'envoie au serveur et on l'affiche dans le titre
+
+
+
+        socket.emit('nouveau_client', pseudo);
+        document.title = pseudo + ' - ' + document.title;
+        // Quand on reçoit un message, on l'insère dans la page
+        socket.on('messages', function(data) {
+            alert(data);
+        });
+        // Quand un nouveau client se connecte, on affiche l'information
+        socket.on('nouveau_client', function(pseudo) {
+            $('#messages').prepend('<p><em>' + pseudo + ' a rejoint le Chat !</em></p>');
+        })
+
+        $('form').submit(function(){
+            socket.emit('chat message', $('#m').val());
+            $('#m').val('');
+            return false;
+        });
+        socket.on('chat message', function(msg){
+            $('#messages').append($('<li>').text(pseudo + ' : ' +msg));
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+        
+    });
+</script>
 </body>
 </html>

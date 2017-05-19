@@ -1,10 +1,10 @@
-var express = require('express')
+const express = require('express')
 var path = require('path')
-var app = express()
-var server = require('http').createServer(app)
+const app = express()
+const server = require('http').createServer(app)
 let bodyParser = require('body-parser')
 let session = require('express-session')
-var port = 8080
+
 
 process.env.NODE_ENV="production";
 
@@ -53,18 +53,23 @@ app.get('/message/:id', (request, response) => {
 
 
 // Chargement de socket.io
-var io = require('socket.io').listen(server);
+const io = require('socket.io')(server);
 
-io.on('connection', function(client) {
+io.on('connection', function(socket){
+
     console.log('Client connected...');
 
-    client.on('join', function(data) {
+    socket.on('join', function(data) {
         console.log(data);
-        client.emit('messages', 'Hello from server');
+        io.emit('pseudo message', 'Hello client !');
+    });
+
+    socket.on('chat message', function(msg){
+        io.emit('chat message', msg);
     });
 
 });
 
-app.listen(port)
-console.log("Listening on host : localhost")
-console.log("Listening on port " + port);
+server.listen(8080);
+console.log("Listening on host : localhost:8080")
+
